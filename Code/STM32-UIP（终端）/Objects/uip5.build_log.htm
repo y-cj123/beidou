@@ -1,0 +1,151 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: chen jun, nanjin university, LIC=50D74-FYSN7-68UFC-70SVI-DKADS-BBBYY
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  D:\MDK5.14\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DCM.DLL V1.13.1.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
+Dialog DLL:      TCM.DLL V1.14.4.0
+ 
+<h2>Project:</h2>
+C:\Users\19758\Desktop\uip5-0425\uip5.uvprojx
+Project File Date:  09/14/2019
+
+<h2>Output:</h2>
+Build target 'Server'
+compiling main.c...
+.\unix\packet.h(10): warning:  #1295-D: Deprecated declaration packet_init - give arg types
+  void packet_init();
+unix\usart.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+unix\BD_1.h(30): warning:  #1295-D: Deprecated declaration UART_DATA_GET - give arg types
+  void UART_DATA_GET();
+unix\main.c(136): warning:  #940-D: missing return statement at end of non-void function "uart5_DATA_PROCESS"
+  }
+unix\main.c(290): warning:  #111-D: statement is unreachable
+    return 0;
+unix\main.c(144): warning:  #177-D: variable "buf" was declared but never referenced
+        unsigned char buf[16];
+unix\main.c(145): warning:  #177-D: variable "online_judge_flag" was declared but never referenced
+        int online_judge_flag=0;
+unix\main.c: 7 warnings, 0 errors
+compiling BD_1.c...
+unix\BD_1.h(30): warning:  #1295-D: Deprecated declaration UART_DATA_GET - give arg types
+  void UART_DATA_GET();
+unix\usart.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+unix\BD_1.c(57): warning:  #111-D: statement is unreachable
+                printf("功率检测合格\r\n");
+unix\BD_1.c(158): warning:  #177-D: variable "ADDR" was declared but never referenced
+        u8 ADDR[3] = {0x04, 0xE3, 0xC9};        
+unix\BD_1.c(159): warning:  #177-D: variable "delay_timer" was declared but never referenced
+        struct timer delay_timer;
+unix\BD_1.c(237): warning:  #550-D: variable "hol_len" was set but never used
+        unsigned char hol_len[2], my_addr[3], info_cate, send_addr[3], from_addr[3];
+unix\BD_1.c(237): warning:  #550-D: variable "my_addr" was set but never used
+        unsigned char hol_len[2], my_addr[3], info_cate, send_addr[3], from_addr[3];
+unix\BD_1.c(237): warning:  #550-D: variable "info_cate" was set but never used
+        unsigned char hol_len[2], my_addr[3], info_cate, send_addr[3], from_addr[3];
+unix\BD_1.c(237): warning:  #550-D: variable "from_addr" was set but never used
+        unsigned char hol_len[2], my_addr[3], info_cate, send_addr[3], from_addr[3];
+unix\BD_1.c(238): warning:  #550-D: variable "send_time" was set but never used
+        unsigned char send_time[2], len[2], crc, check;
+unix\BD_1.c(238): warning:  #550-D: variable "crc" was set but never used
+        unsigned char send_time[2], len[2], crc, check;
+unix\BD_1.c(238): warning:  #550-D: variable "check" was set but never used
+        unsigned char send_time[2], len[2], crc, check;
+unix\BD_1.c(327): warning:  #177-D: variable "j" was declared but never referenced
+        unsigned char i, k, sum, j;
+unix\BD_1.c(328): warning:  #177-D: variable "delay_timer1" was declared but never referenced
+        struct timer delay_timer1;
+unix\BD_1.c(329): warning:  #177-D: variable "ADDR" was declared but never referenced
+        u8 ADDR[3] = {0x04, 0xE3, 0xC9};          
+unix\BD_1.c: 15 warnings, 0 errors
+linking...
+Program Size: Code=18676 RO-data=412 RW-data=364 ZI-data=13620  
+FromELF: creating hex file...
+".\Objects\uip5.axf" - 0 Error(s), 22 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.2.0.pack
+                ARM::CMSIS:CORE:3.40.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 3.40.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.1.0.5.pack
+                Keil::Device:Startup:1.0.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 1.0.0
+   * Component: Framework Version: 3.5.1
+   * Component: EXTI Version: 3.5.0
+   * Component: TIM Version: 3.5.0
+   * Component: RCC Version: 3.5.0
+   * Component: SPI Version: 3.5.0
+   * Component: USART Version: 3.5.0
+   * Component: GPIO Version: 3.5.0
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\19758\Desktop\uip5-0425\RTE
+  C:\Users\19758\Desktop\uip5-0425\RTE\Device\STM32F103RC
+  D:\MDK5.14\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include
+  D:\MDK5.14\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
+  D:\MDK5.14\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\StdPeriph_Driver\inc
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:3.40.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\ARM\startup_stm32f10x_hd.s
+      Source file:   Device\Source\system_stm32f10x.c
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
+
+   * Component: Keil::Device:StdPeriph Drivers:Framework:3.5.1
+      Source file:   Device\StdPeriph_Driver\templates\stm32f10x_it.c
+      Source file:   Device\StdPeriph_Driver\src\misc.c
+      Source file:   Device\StdPeriph_Driver\templates\stm32f10x_conf.h
+
+   * Component: Keil::Device:StdPeriph Drivers:EXTI:3.5.0
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_exti.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_exti.h
+
+   * Component: Keil::Device:StdPeriph Drivers:TIM:3.5.0
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_tim.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_tim.c
+
+   * Component: Keil::Device:StdPeriph Drivers:RCC:3.5.0
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_rcc.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_rcc.h
+
+   * Component: Keil::Device:StdPeriph Drivers:SPI:3.5.0
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_spi.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_spi.c
+
+   * Component: Keil::Device:StdPeriph Drivers:USART:3.5.0
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_usart.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_usart.h
+
+   * Component: Keil::Device:StdPeriph Drivers:GPIO:3.5.0
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_gpio.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_gpio.c
+</pre>
+</body>
+</html>
