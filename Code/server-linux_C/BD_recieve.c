@@ -151,7 +151,7 @@ while(1)
 				}
 				printf("\n\n");
 				/**************up_load_enquiry*****************/
-				if(msg.data[1]==0x68)
+				if(msg.data[5]==0x68)
 				{
 					printf("\nenquiry.\n");
 					//snprintf(file_name,25,"./%x%x%x",from_addr[0],from_addr[1],from_addr[2]);
@@ -201,10 +201,68 @@ while(1)
 				
 				
 				/****************判别报文类型************************/
-				
+				if (msg.data[3] != 0 && msg.data[5] != 0x68)				//普通报文
+				{
+					printf("普通报文\n");
+					snprintf(file_name, 20,"1./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
+					if(access(file_name,F_OK)==0)
+					{	
+						//查重
+						fp_process=fopen(file_name,"r");
+						while(!feof(fp_process))
+						{
+							fgets(rf_buff,RLINE,fp_process);
+						    seq_number=get_pure_data(rf_buff,NULL);
+							if(seq_number==msg.data[3]) 
+							{	
+								printf("是重复报文，删除！\n");
+								msg.stat=0;
+								memset(&msg, 0, sizeof(struct DT));
+								break;
+							}	
+						}
+						//将数据写入已有文件中
+						if(msg.stat==1)
+						{	
+							fclose(fp_process);
+							fp_process=fopen(file_name,"a");
+							fseek(fp_process,0,SEEK_END);//将文件指针指向文件结尾
+							time(&time_present);
+							length_of_time=(int)strlen(ctime(&time_present));
+							fprintf(fp_process,"\n");
+							fprintf(fp_process,"%sFrom:%x %x %x\n",ctime(&time_present),from_addr[0],from_addr[1],from_addr[2]);
+							fprintf(fp_process,"sub%x in %x:",receive_data[3],receive_data[4]);
+							for(i=5;i<receive_length;i++)
+							{
+								fprintf(fp_process,"%x ",msg.data[i]);
+							}
+							fprintf(fp_process,"\n");
+							msg.stat=0; //msg is saved
+						}
+					}
+					//新建一个文件，写入数据
+					else
+					{	
+						fp_process=fopen(file_name,"w+");
+	/********get the current time and add it into the save files***************/
+						time(&time_present);
+						length_of_time=(int)strlen(ctime(&time_present));
+
+						fprintf(fp_process,"\n");
+						fprintf(fp_process,"%sFrom:%x %x %x\n",ctime(&time_present),from_addr[0],from_addr[1],from_addr[2]);
+						fprintf(fp_process,"sub%x in %x:",receive_data[3],receive_data[4]);
+						for(i=5;i<receive_length;i++)
+						{
+							fprintf(fp_process,"%x ",msg.data[i]);
+					    }						
+						msg.stat=0; 
+					}
+/**clsoe temp file after save one submessage*/	
+					fclose(fp_process);
+				}
 								
 				
-				if(msg.data[3]==0 && msg.data[1] != 0x68)		//确认报文
+				if(msg.data[3]==0 && msg.data[5] != 0x68)		//确认报文
 				{	
 					printf("收到确认报文，开始检查缺少报文......\n");
 					/****open the temp file********/
@@ -292,7 +350,7 @@ while(1)
 								{
 									printf("send ACK write right\n");
 									BD_last_sendtimer=curr_timer;
-									break；
+									break;
 								}
 								else printf("北斗串口写入失败\n");
 							}
@@ -409,65 +467,7 @@ while(1)
 					}
 				}
 
-				if (msg.data[3] != 0 && msg.data[1] != 0x68)				//普通报文
-				{
-					printf("普通报文\n");
-					snprintf(file_name, 20,"1./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
-					if(access(file_name,F_OK)==0)
-					{	
-						//查重
-						fp_process=fopen(file_name,"r");
-						while(!feof(fp_process))
-						{
-							fgets(rf_buff,RLINE,fp_process);
-						    seq_number=get_pure_data(rf_buff,NULL);
-							if(seq_number==msg.data[3]) 
-							{	
-								printf("是重复报文，删除！\n");
-								msg.stat=0;
-								memset(&msg, 0, sizeof(struct DT));
-								break;
-							}	
-						}
-						//将数据写入已有文件中
-						if(msg.stat==1)
-						{	
-							fclose(fp_process);
-							fp_process=fopen(file_name,"a");
-							fseek(fp_process,0,SEEK_END);//将文件指针指向文件结尾
-							time(&time_present);
-							length_of_time=(int)strlen(ctime(&time_present));
-							fprintf(fp_process,"\n");
-							fprintf(fp_process,"%sFrom:%x %x %x\n",ctime(&time_present),from_addr[0],from_addr[1],from_addr[2]);
-							fprintf(fp_process,"sub%x in %x:",receive_data[3],receive_data[4]);
-							for(i=5;i<receive_length;i++)
-							{
-								fprintf(fp_process,"%x ",msg.data[i]);
-							}
-							fprintf(fp_process,"\n");
-							msg.stat=0; //msg is saved
-						}
-					}
-					//新建一个文件，写入数据
-					else
-					{	
-						fp_process=fopen(file_name,"w+");
-	/********get the current time and add it into the save files***************/
-						time(&time_present);
-						length_of_time=(int)strlen(ctime(&time_present));
 
-						fprintf(fp_process,"\n");
-						fprintf(fp_process,"%sFrom:%x %x %x\n",ctime(&time_present),from_addr[0],from_addr[1],from_addr[2]);
-						fprintf(fp_process,"sub%x in %x:",receive_data[3],receive_data[4]);
-						for(i=5;i<receive_length;i++)
-						{
-							fprintf(fp_process,"%x ",msg.data[i]);
-					    }						
-						msg.stat=0; 
-					}
-/**clsoe temp file after save one submessage*/	
-					fclose(fp_process);
-				}
 			}
 	}
 }

@@ -27,8 +27,7 @@ void socket_recieve(int sockfd)
 				int cnt = 0;
 				for(cnt = 0; cnt != nread; ++cnt)
 					download_command[cnt] = buffer[cnt];
-				//download_signal = 1;
-				
+				//download_signal = 1;		
 
 				buffer[nread]='\0';
 				printf("recieve command from server:\n");
@@ -36,10 +35,11 @@ void socket_recieve(int sockfd)
 				bzero(buffer,sizeof(buffer));
 				nread = 0;
 				download_signal = 1;
+				BD_last_sendtimer=curr_timer;
 			}
 		}
 		else {
-			wait_time=60-(curr_timer-BD_last_sendtimer);
+			int wait_time=60-(curr_timer-BD_last_sendtimer);
 			bd_send_notReady[3]=wait_time;
 			send(sockfd, bd_send_notReady, 4, 0);	
 		}
