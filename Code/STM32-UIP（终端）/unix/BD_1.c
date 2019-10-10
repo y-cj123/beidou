@@ -6,6 +6,7 @@
 #include "timer.h"
 
 //??
+extern int ask_count;
 u8 ZJ[] = {'$', 'X', 'T', 'Z', 'J', 0x00, 0x0D, 0, 0, 0, 0, 0, 0x35};		   //????
 u8 IC[] = {'$', 'I', 'C', 'J', 'C', 0,    0x0C, 0, 0, 0, 0, 0x2B};			   //IC??
 u8 SD[228];
@@ -308,10 +309,16 @@ int BD_read(u8* origin, u8* recieve_data)
 
 			return lenth;
 		}
+		else if(origin[1]=='F'&&origin[2]=='K')
+		{
+			flag=0;
+			printf("北斗返回信息\r\n");
+			return -1;
+		}
 		else
 		{
 			flag=0;
-			printf("无效信息，请检查数据格式\r\n");
+			printf("无效信息\r\n");
 			return -1;
 		}
 		
@@ -376,12 +383,15 @@ void BD_retransmission(unsigned char len,unsigned char *data)
 						printf("子包数目大于3，将不进行处理……\r\n");				
 			}
 				BD_BUF_ASK_LEN=ask_len;	
+				ask_count=0;
 		}
 		//无丢包不重传，北斗可以重新接受终端新数据
 		else 
 		{
+			u8 ackdata[2] = {0x4F, 0x4B};
 			BD_process_STA=0;
 			printf("收到ACK显示无需重传数据包,该数据传输过程结束,可以再次发送数据\r\n");
+			BD_TXSQ_SEND(ADDR,ackdata,2);
 		}
 	}
 }

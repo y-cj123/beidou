@@ -12,13 +12,16 @@ void socket_recieve(int sockfd)
 {
 	unsigned char buffer[1024];
 	int nread = 0;
+	time_t curr_timer;
 	bzero(buffer,sizeof(buffer));
 	while(1)
 	{
 
 		nread=read(sockfd,buffer,sizeof(buffer));
-		time_t curr_timer;
-		time(&curr_timer);
+		//time_t curr_timer;
+		//time(&curr_timer);
+		curr_timer=time(NULL);
+		printf("当前计时时间为%ld \n", curr_timer);
 		if (curr_timer-BD_last_sendtimer>60)
 		{
 			if(nread > 0)

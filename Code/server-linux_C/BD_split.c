@@ -9,6 +9,7 @@
 输入参数： port_f 串口设备； from_addr 发信地址； recieve_data 接收数据
 输出参数： 接收数据长度
 ********************************/
+int acked;
 int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 {
 	unsigned char origin[1024];
@@ -23,7 +24,6 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 	while((nread = read(port_f,buff,1))>0)
 	{
 		//printf("%x ", buff[0]);
-		printf("已读到串口数据\n");
 		if(new_data==0)
 		{
 			if(buff[0]=='$') 
@@ -66,6 +66,10 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 		if(flag==1&&origin[1]=='T')
 		{
 			flag++;//flag=2;  $TXXX 通信信息
+		}
+		else if(origin[1]=='F'&&origin[2]=='K')
+		{
+			acked=1;
 		}
 		else
 		{

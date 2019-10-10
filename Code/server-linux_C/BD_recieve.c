@@ -15,6 +15,7 @@ extern unsigned char my_addr[3];//服务器北斗地址
 extern int upload_signal;//上传信号，置1可以上传
 extern char upload_filename[30];//保存数据文件
 extern time_t BD_last_sendtimer;
+extern int acked;
 time_t curr_timer;
 
 int get_pure_data(char *rf_buff,char *pstr[])
@@ -95,8 +96,7 @@ void BD_receive(int port_f)
 	char rf_buff[RLINE];
 	int seq_number=0;
 	int number_of_packages;
-
-
+	int ack_num=0;
 /**********等待接收数据*********/
 	struct DT
 	{
@@ -131,7 +131,7 @@ while(1)
 		{
 	
 		/*****************拆北斗报文头********************/
-		printf("开始读取串口数据，数据格式不对将打印length = -1\n");
+		printf("北斗返回数据打印length = -1\n");
 		receive_length = BD_read(port_f,from_addr,receive_data);
 		printf("lenth = %d\n", receive_length);
 		if(receive_length>0)
@@ -142,15 +142,21 @@ while(1)
 				/***************************识别地址，标识***************************/
 				printf("\n收到来自%x %x %x的北斗报文：\n",from_addr[0],from_addr[1],from_addr[2]);
 				/***************get the length of each part in subpackages*********/
+				printf("receive_data的报文\n"); 
 				for(i=0;i<receive_length;i++)	//存储 to buffer msg
 				{
 					msg.data[i]=receive_data[i];
 					msg.stat = 1;
-					printf("receive_data的报文\n"); 
 					printf("%x ",receive_data[i]);        
 				}
 				printf("\n\n");
+				if(msg.data[5]==0x4F&&msg.data[6]==0x4B)
+				{
+					ack_num=0;
+					printf("通信成功\n");
+				}
 				/**************up_load_enquiry*****************/
+				/*
 				if(msg.data[5]==0x68)
 				{
 					printf("\nenquiry.\n");
@@ -196,15 +202,16 @@ while(1)
 					fclose(fp);
 					upload_signal = 1;
 				}
+				
 				/*******************************************/	
 		
 				
 				
 				/****************判别报文类型************************/
-				if (msg.data[3] != 0 && msg.data[5] != 0x68)				//普通报文
+				if (msg.data[3] != 0)				//普通报文
 				{
 					printf("普通报文\n");
-					snprintf(file_name, 20,"1./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
+					snprintf(file_name, 20,"./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
 					if(access(file_name,F_OK)==0)
 					{	
 						//查重
@@ -267,7 +274,7 @@ while(1)
 					printf("收到确认报文，开始检查缺少报文......\n");
 					/****open the temp file********/
 					//格式化拷贝字符串到file_name中
-					snprintf(file_name, 20,"1./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
+					snprintf(file_name, 20,"./%x%x%x_%x%x_temp",from_addr[0],from_addr[1],from_addr[2],receive_data[1],receive_data[2]);
 					if(access(file_name,F_OK)==0)//判断文件是否存在
 					{					
 						fp_process=fopen(file_name,"r");
@@ -342,27 +349,35 @@ while(1)
 						printf("\n\n");
 
 						printf("发送ACK...\n\n");
-						//time(&curr_timer);
 						while(1){
-							time(&curr_timer);
+							//time(&curr_timer);
+							curr_timer=time(NULL);
+							printf("当前计时时间为%ld \n", curr_timer);
 							if(curr_timer-BD_last_sendtimer>60){
 								if(write(port_f,ACK_send,3+n_lost_packs+19)!=-1)
 								{
-									printf("send ACK write right\n");
-									BD_last_sendtimer=curr_timer;
-									break;
+									receive_length=BD_read(port_f,from_addr,receive_data);
+									if(acked==1)
+									{
+										printf("already send data to Beidou\n");
+										BD_last_sendtimer=curr_timer;
+										break;
+										acked=0;
+									}
 								}
 								else printf("北斗串口写入失败\n");
 							}
 							else{
-								printf("北斗设备未准备就绪，%ds后重发\n", curr_timer-BD_last_sendtimer);	
-								sleep(curr_timer-BD_last_sendtimer+1);
+								time_t wait_time=60-(curr_timer-BD_last_sendtimer);
+								printf("北斗设备未准备就绪，%ds后重发\n", wait_time);	
+								sleep(wait_time+1);
 							} 
 						}
 						
-						if(n_lost_packs==0)
+						if(n_lost_packs==0&&ack_num==0)
 						{
-							printf("通信成功！\n");
+
+							ack_num=1;
 							char time_buff[30];
 							char day_year[16];
 							char str_pd[SP_LEN*3+1];
@@ -405,7 +420,7 @@ while(1)
 							//remove(file_name);
 //func -open file
 							//printf("day_year :%s\n", day_year);
-							snprintf(file_name,25,"2./%x%x%x %s",from_addr[0],from_addr[1],from_addr[2],day_year);
+							snprintf(file_name,25,"./%x%x%x %s",from_addr[0],from_addr[1],from_addr[2],day_year);
 							if(access(file_name,F_OK)==0)
 							{
 								fp=fopen(file_name,"a");
@@ -466,8 +481,6 @@ while(1)
 						printf("false enquiry package\n");
 					}
 				}
-
-
 			}
 	}
 }

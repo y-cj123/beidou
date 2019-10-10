@@ -8,7 +8,6 @@ unsigned char my_addr[3];
 
 int upload_signal;
 char upload_filename[30];
-
 int download_signal;
 int command_lenth;
 unsigned char download_command[1024];
@@ -108,7 +107,9 @@ int main(int argc, char *argv[])
 	char *set_parity = c_parity;	//81N
 	port_f = set_port(boud, dev, set_parity);
 	printf("serial port is open！The boud is %d\n",boud);
-	time(&BD_last_sendtimer);
+	//time(&BD_last_sendtimer);
+	BD_last_sendtimer=time(NULL);
+	printf("北斗计时开始时间为%ld \n",BD_last_sendtimer);
 
 
 /**********创建BD串口接收进程*************/	
@@ -181,7 +182,7 @@ int main(int argc, char *argv[])
 	pthread_attr_init(&socket_recieve_attr);
 	pthread_create(&socket_recieve_tid, &socket_recieve_attr, (void *)socket_recieve, sockfd);
 	
-	printf("created socket recivev thread\n");
+	printf("created socket receive thread\n");
 
 /***********本进程执行的任务****************/
 
@@ -190,7 +191,7 @@ send login datagram
 ****/
 unsigned char login[20]={0x68,0x32,0x00,0x32,0x00,0x68,0xD9,0x11,0x20,0x70,0x14,0x00,0x02,0x73,0x00,0x00,0x01,0x00,0x04,0x16};
 send(sockfd, login,20, 0);
-
+printf("login in\n");
 	while(1)
 	{	
 		if(upload_signal == 1)

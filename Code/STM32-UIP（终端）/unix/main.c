@@ -66,7 +66,7 @@ u8 gprs_state[]={0x0D,0x0A,0x5B,0x55,0x53,0x52,0x2D,0x37,0x53,0x34,0x20,0x56,0x3
 int gprs_on=0;
 u8 ip[20]="114.212.112.36";
 u8 por[5]="8086";
-
+int ask_count;
 //#ifdef CLIENT
 /*
 * Here is a simple example of how to use the fifo
@@ -138,7 +138,7 @@ int uart5_DATA_PROCESS()
 /*---------------------------------------------------------------------------*/
 int main(void)
 {
-  int i,ask_count;
+  int i;
   uip_ipaddr_t ipaddr;
   struct timer periodic_timer, arp_timer,event_timer,BD_send_timer,gprs_timer;
 	unsigned char buf[16];

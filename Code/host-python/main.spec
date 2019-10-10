@@ -1,10 +1,10 @@
-# -*- mode: python -*-
+# -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
 
 
-a = Analysis(['main.py', 'AppMainWindow.py'],
-             pathex=['D:\\Users\\JN\\PycharmProjects\\WpfApp'],
+a = Analysis(['main.py'],
+             pathex=['C:\\Users\\19758\\Desktop\\北斗项目\\NJU-BeidouProject\\Code\\host-python'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -19,18 +19,15 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
           [],
-          exclude_binaries=True,
           name='main',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               name='main')
+          upx_exclude=[],
+          runtime_tmpdir=None,
+          console=False )
