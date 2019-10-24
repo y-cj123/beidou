@@ -20,7 +20,8 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 	int flag=0,new_data=0;
 	int nread=0;
 	unsigned char buff[512];
-
+	bzero(origin,sizeof(origin));
+	bzero(buff,sizeof(buff));
 	while((nread = read(port_f,buff,1))>0)
 	{
 		//printf("%x ", buff[0]);
@@ -40,25 +41,44 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 			k++;
 		}
 	}
-	printf("\nbuff: ");
-	for(i=0; i<k; i++)
-	{
-		printf("%x ",origin[i]);
-	}
-	printf("\n%d\n", k);
+	printf("\nk is %d\n", k);
 	if(k == 0)
+	{	
 		printf("未读到串口数据\n");
-
-	k=0;
-	new_data=0;
+		bzero(origin,sizeof(origin));
+		bzero(buff,sizeof(buff));
+		new_data=0;
+	}
+	else
+	{
+		printf("\nbuff: ");
+		for(i=0; i<k; i++)
+		{
+			printf("%x ",origin[i]);
+		}
+		k=0;
+		new_data=0;
+	}
+	sleep(2);
 /*
 	while(buffer[i] != '$')
 		++i;
 	for(n = 0; n < strlen(buffer); ++n)
 		origin[n] = buffer[i + n];
 */		
-
-		//printf("%x, %x, %x, %x, %x",origin[0],origin[1],origin[2],origin[3],origin[4]);
+	if(origin[0]!=0&&origin[1]!=0)
+	{//printf("%x, %x, %x, %x, %x",origin[0],origin[1],origin[2],origin[3],origin[4]);
+		
+		if(origin[0]=='$'&&origin[1]=='F'&&origin[2]=='K')//修改 查看是否有北斗返回信息以确保数据已经通过北斗发送出去
+		{
+			printf("北斗已发送数据并有返回数据\n");
+			acked=1;
+		}
+		else
+		{
+			acked=0;
+		}
+		
 		if(flag==0&&origin[0]=='$') 
 		{
 			flag++;  //用来判断是什么指令【flag=1是命令】
@@ -66,10 +86,6 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 		if(flag==1&&origin[1]=='T')
 		{
 			flag++;//flag=2;  $TXXX 通信信息
-		}
-		else if(origin[1]=='F'&&origin[2]=='K')
-		{
-			acked=1;
 		}
 		else
 		{
@@ -127,10 +143,15 @@ int BD_read(int port_f, unsigned char from_addr[], unsigned char recieve_data[])
 			}
 
 			return lenth; //函数返回值为接收到电文的数据长度
+			bzero(origin,sizeof(origin));
+			bzero(buff,sizeof(buff));
 		}
 		else
 		{
 			flag=0;
 			return -1;
-		}		
+			bzero(origin,sizeof(origin));
+			bzero(buff,sizeof(buff));
+		}
+	}		
 }

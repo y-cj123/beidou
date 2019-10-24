@@ -1,11 +1,16 @@
 #include "BD_write.h"
 #include "BD_combine.h"
 #include "Init.h"
+#include "BD_split.h"
 
 extern unsigned char my_addr[3];
 extern int download_signal;
 extern int command_lenth;
 extern unsigned char download_command[1024];
+extern time_t BD_last_sendtimer;
+extern int acked;
+time_t curr_timer;
+int receive_length=0;
 
 void BD_write(int port_f)
 {
@@ -72,17 +77,27 @@ void BD_write(int port_f)
 			printf("\n");
 
 			//写入串口
-			write(port_f, send_buffer, command_lenth);
-			//sleep(2);
-			//len1 = BD_read(port_f, from_addr, receive_data);
-			//while (len1 == -1)
-			//{
-			//	printf("send again.\n");
-			//	write(port_f,send_buffer, command_lenth);
-			//	sleep(1);
-			//	len1 = BD_read(port_f, from_addr, receive_data);
-			//}			
+			//write(port_f, send_buffer, send_buffer);		
 
+			//写入串口改写
+			while(1){
+					sleep(2);
+					time(&curr_timer);
+					if(write(port_f,send_buffer,command_lenth)!=-1)
+					{
+						receive_length=BD_read(port_f,from_addr,receive_data);
+						if(receive_length==-1&&acked==1)
+						{
+							printf("already send data to Beidou\n");
+							BD_last_sendtimer=curr_timer;
+							acked=0;
+							printf("BD_last_sendtimer is %d\n",BD_last_sendtimer);
+							break;
+						}
+
+					}
+					else printf("串口写入失败\n");
+				}
 			bzero(send_buffer,sizeof(send_buffer));			
 			bzero(download_command, sizeof(download_command));
 			command_lenth = 0;

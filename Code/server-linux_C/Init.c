@@ -13,7 +13,7 @@ int command_lenth;
 unsigned char download_command[1024];
 
 time_t BD_last_sendtimer;
-int bd_send_notReady[4]={0xff,0x00,0xff,0x00};//当北斗没有准备好发送数据时，返回给服务器的告知消息，并让他等待ns后重发
+//int bd_send_notReady[4]={0xff,0x00,0xff,0x00};//当北斗没有准备好发送数据时，返回给服务器的告知消息，并让他等待ns后重发
 
 //将字符串转换为16进制
 unsigned char char2xchar(unsigned char *c,int n)

@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("MainWindow") #电力通信异构网络测试系统
         MainWindow.resize(1283, 777)
         MainWindow.setMinimumSize(QtCore.QSize(1283, 777))
         MainWindow.setMaximumSize(QtCore.QSize(1283, 777))
@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(370, 0, 551, 51))
+        self.label_8.setGeometry(QtCore.QRect(370, 0, 645, 51))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         font.setFamily("楷体")
         font.setPointSize(20)
         self.label_8.setFont(font)
-        self.label_8.setObjectName("label_8")
+        self.label_8.setObjectName("label_8") #基于星地融合的电力通信异构网络测试系统
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(20, 700, 1241, 16))
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -173,14 +173,14 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.label_17 = QtWidgets.QLabel(self.centralwidget)
-        self.label_17.setGeometry(QtCore.QRect(620, 720, 121, 16))
+        self.label_17.setGeometry(QtCore.QRect(620, 720, 137, 20))
         font = QtGui.QFont()
         font.setFamily("Adobe Devanagari")
         font.setPointSize(9)
         self.label_17.setFont(font)
-        self.label_17.setObjectName("label_17")
-        self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(600, 730, 154, 18))
+        self.label_17.setObjectName("label_17") #版权所有，翻版必究
+        self.layoutWidget = QtWidgets.QWidget(self.centralwidget) #最底部一行
+        self.layoutWidget.setGeometry(QtCore.QRect(600, 740, 270, 18))
         self.layoutWidget.setObjectName("layoutWidget")
         self.horizontalLayout_15 = QtWidgets.QHBoxLayout(self.layoutWidget)
         self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
@@ -190,7 +190,7 @@ class Ui_MainWindow(object):
         font.setFamily("Adobe Devanagari")
         font.setPointSize(9)
         self.label_9.setFont(font)
-        self.label_9.setObjectName("label_9")
+        self.label_9.setObjectName("label_9") #本软件最终解释权归
         self.horizontalLayout_15.addWidget(self.label_9)
         self.label_18 = QtWidgets.QLabel(self.layoutWidget)
         palette = QtGui.QPalette()
@@ -337,7 +337,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label_18.setFont(font)
         self.label_18.setTabletTracking(True)
-        self.label_18.setObjectName("label_18")
+        self.label_18.setObjectName("label_18") #@ISTIN
         self.horizontalLayout_15.addWidget(self.label_18)
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(21, 71, 16, 629))
@@ -345,7 +345,7 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.centralwidget)
         self.widget_2.setGeometry(QtCore.QRect(1250, 71, 16, 629))
         self.widget_2.setObjectName("widget_2")
-        self.layoutWidget1 = QtWidgets.QWidget(self.centralwidget)
+        self.layoutWidget1 = QtWidgets.QWidget(self.centralwidget) #
         self.layoutWidget1.setGeometry(QtCore.QRect(37, 71, 1211, 621))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.layoutWidget1)
@@ -361,7 +361,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label = QtWidgets.QLabel(self.layoutWidget1)
+        self.label = QtWidgets.QLabel(self.layoutWidget1)   #本机Ip
         font = QtGui.QFont()
         font.setFamily("新宋体")
         font.setPointSize(14)
@@ -379,7 +379,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_2.setFont(font)
         self.label_2.setTextFormat(QtCore.Qt.AutoText)
-        self.label_2.setObjectName("label_2")
+        self.label_2.setObjectName("label_2") #
         self.verticalLayout_7.addWidget(self.label_2)
         self.horizontalLayout_3.addLayout(self.verticalLayout_7)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
@@ -397,22 +397,130 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+
+        #添加按钮
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
+        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
+
         self.pushButton_link = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_link.setFont(font)
         self.pushButton_link.setStyleSheet("")
-        self.pushButton_link.setObjectName("pushButton_link")
+        self.pushButton_link.setObjectName("pushButton_link") #连接网络
         self.horizontalLayout_7.addWidget(self.pushButton_link)
         self.pushButton_unlink = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_unlink.setFont(font)
-        self.pushButton_unlink.setObjectName("pushButton_unlink")
+        self.pushButton_unlink.setObjectName("pushButton_unlink") #断开网络
         self.horizontalLayout_7.addWidget(self.pushButton_unlink)
+
+        #添加主站主动读取电量按钮
+        self.pushButton_readpower = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower.setFont(font)
+        self.pushButton_readpower.setStyleSheet("")
+        self.pushButton_readpower.setObjectName("pushButton_readpower") #读取电表1
+        self.horizontalLayout_7.addWidget(self.pushButton_readpower)
+
+        self.pushButton_readpower1 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower1.setFont(font)
+        self.pushButton_readpower1.setStyleSheet("")
+        self.pushButton_readpower1.setObjectName("pushButton_readpower1")  # 读取电表2
+        self.horizontalLayout_16.addWidget(self.pushButton_readpower1)
+
+        self.pushButton_readpower2 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower2.setFont(font)
+        self.pushButton_readpower2.setStyleSheet("")
+        self.pushButton_readpower2.setObjectName("pushButton_readpower2")  # 读取电表3
+        self.horizontalLayout_16.addWidget(self.pushButton_readpower2)
+
+        self.pushButton_readpower3 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower3.setFont(font)
+        self.pushButton_readpower3.setStyleSheet("")
+        self.pushButton_readpower3.setObjectName("pushButton_readpower3")  # 读取电表4
+        self.horizontalLayout_16.addWidget(self.pushButton_readpower3)
+
+        self.pushButton_readpower4 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower4.setFont(font)
+        self.pushButton_readpower4.setStyleSheet("")
+        self.pushButton_readpower4.setObjectName("pushButton_readpower4")  # 读取电表5
+        self.horizontalLayout_17.addWidget(self.pushButton_readpower4)
+
+        self.pushButton_readpower5 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower5.setFont(font)
+        self.pushButton_readpower5.setStyleSheet("")
+        self.pushButton_readpower5.setObjectName("pushButton_readpower5")  # 读取电表6
+        self.horizontalLayout_17.addWidget(self.pushButton_readpower5)
+
+        self.pushButton_readpower6 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower6.setFont(font)
+        self.pushButton_readpower6.setStyleSheet("")
+        self.pushButton_readpower6.setObjectName("pushButton_readpower6")  # 读取电表7
+        self.horizontalLayout_17.addWidget(self.pushButton_readpower6)
+
+        self.pushButton_readpower7 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower7.setFont(font)
+        self.pushButton_readpower7.setStyleSheet("")
+        self.pushButton_readpower7.setObjectName("pushButton_readpower7")  # 读取电表8
+        self.horizontalLayout_18.addWidget(self.pushButton_readpower7)
+
+        self.pushButton_readpower8 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower8.setFont(font)
+        self.pushButton_readpower8.setStyleSheet("")
+        self.pushButton_readpower8.setObjectName("pushButton_readpower8")  # 读取电表9
+        self.horizontalLayout_18.addWidget(self.pushButton_readpower8)
+
+        self.pushButton_readpower9 = QtWidgets.QPushButton(self.layoutWidget1)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.pushButton_readpower9.setFont(font)
+        self.pushButton_readpower9.setStyleSheet("")
+        self.pushButton_readpower9.setObjectName("pushButton_readpower9")  # 读取电表10
+        self.horizontalLayout_18.addWidget(self.pushButton_readpower9)
+
+
         self.verticalLayout_8.addLayout(self.horizontalLayout_7)
+
+        self.verticalLayout_8.addLayout(self.horizontalLayout_16)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_17)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_18)
+
+
         self.verticalLayout_10.addLayout(self.verticalLayout_8)
         self.label_3 = QtWidgets.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
@@ -421,7 +529,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_3.setFont(font)
-        self.label_3.setObjectName("label_3")
+        self.label_3.setObjectName("label_3") #调试区域：
         self.verticalLayout_10.addWidget(self.label_3)
         self.textEdit_send = QtWidgets.QTextEdit(self.layoutWidget1)
         self.textEdit_send.setObjectName("textEdit_send")
@@ -429,24 +537,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         self.checkBox_HEX = QtWidgets.QCheckBox(self.layoutWidget1)
-        self.checkBox_HEX.setObjectName("checkBox_HEX")
+        self.checkBox_HEX.setObjectName("checkBox_HEX")  #HEX
         self.horizontalLayout_10.addWidget(self.checkBox_HEX)
         self.checkBox_ASCII = QtWidgets.QCheckBox(self.layoutWidget1)
-        self.checkBox_ASCII.setObjectName("checkBox_ASCII")
+        self.checkBox_ASCII.setObjectName("checkBox_ASCII")  #ASCII
         self.horizontalLayout_10.addWidget(self.checkBox_ASCII)
         self.pushButton_send = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_send.setFont(font)
-        self.pushButton_send.setObjectName("pushButton_send")
+        self.pushButton_send.setObjectName("pushButton_send") #发送
         self.horizontalLayout_10.addWidget(self.pushButton_send)
         self.pushButton_sendClear = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_sendClear.setFont(font)
-        self.pushButton_sendClear.setObjectName("pushButton_sendClear")
+        self.pushButton_sendClear.setObjectName("pushButton_sendClear") #清除
         self.horizontalLayout_10.addWidget(self.pushButton_sendClear)
         self.verticalLayout_10.addLayout(self.horizontalLayout_10)
         self.horizontalLayout_11.addLayout(self.verticalLayout_10)
@@ -462,7 +570,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_10.setFont(font)
         self.label_10.setTextFormat(QtCore.Qt.AutoText)
-        self.label_10.setObjectName("label_10")
+        self.label_10.setObjectName("label_10") #已连接客户端地址：
         self.horizontalLayout_2.addWidget(self.label_10)
         self.comboBox_client = QtWidgets.QComboBox(self.layoutWidget1)
         self.comboBox_client.setObjectName("comboBox_client")
@@ -477,7 +585,7 @@ class Ui_MainWindow(object):
         self.label_11.setFont(font)
         self.label_11.setStyleSheet("")
         self.label_11.setTextFormat(QtCore.Qt.AutoText)
-        self.label_11.setObjectName("label_11")
+        self.label_11.setObjectName("label_11") #报文解析：
         self.verticalLayout_9.addWidget(self.label_11)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
@@ -491,7 +599,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_12.setFont(font)
         self.label_12.setTextFormat(QtCore.Qt.AutoText)
-        self.label_12.setObjectName("label_12")
+        self.label_12.setObjectName("label_12") #终端地址：
         self.verticalLayout.addWidget(self.label_12)
         self.label_15 = QtWidgets.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
@@ -501,7 +609,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_15.setFont(font)
         self.label_15.setTextFormat(QtCore.Qt.AutoText)
-        self.label_15.setObjectName("label_15")
+        self.label_15.setObjectName("label_15") #集中器当前时间：
         self.verticalLayout.addWidget(self.label_15)
         self.label_13 = QtWidgets.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
@@ -511,7 +619,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_13.setFont(font)
         self.label_13.setTextFormat(QtCore.Qt.AutoText)
-        self.label_13.setObjectName("label_13")
+        self.label_13.setObjectName("label_13") #正向有功电能（最近）：
         self.verticalLayout.addWidget(self.label_13)
         self.label_14 = QtWidgets.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
@@ -521,7 +629,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_14.setFont(font)
         self.label_14.setTextFormat(QtCore.Qt.AutoText)
-        self.label_14.setObjectName("label_14")
+        self.label_14.setObjectName("label_14") #正向无功电能（最近）：
         self.verticalLayout.addWidget(self.label_14)
         self.horizontalLayout_8.addLayout(self.verticalLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
@@ -542,7 +650,7 @@ class Ui_MainWindow(object):
         self.lineEdit_terminal_time.setObjectName("lineEdit_terminal_time")
         self.horizontalLayout_6.addWidget(self.lineEdit_terminal_time)
         self.pushButton_time_check = QtWidgets.QPushButton(self.layoutWidget1)
-        self.pushButton_time_check.setObjectName("pushButton_time_check")
+        self.pushButton_time_check.setObjectName("pushButton_time_check") #查询
         self.horizontalLayout_6.addWidget(self.pushButton_time_check)
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
@@ -558,7 +666,7 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(75)
         self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
+        self.label_6.setObjectName("label_6") #kW·h
         self.horizontalLayout_4.addWidget(self.label_6)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -574,7 +682,7 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(75)
         self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
+        self.label_7.setObjectName("label_7") #kW·h
         self.horizontalLayout.addWidget(self.label_7)
         self.verticalLayout_3.addLayout(self.horizontalLayout)
         self.horizontalLayout_8.addLayout(self.verticalLayout_3)
@@ -590,21 +698,21 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_4.setFont(font)
-        self.label_4.setObjectName("label_4")
+        self.label_4.setObjectName("label_4") #数据接收域：
         self.horizontalLayout_9.addWidget(self.label_4)
         self.pushButton_recvClear = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_recvClear.setFont(font)
-        self.pushButton_recvClear.setObjectName("pushButton_recvClear")
+        self.pushButton_recvClear.setObjectName("pushButton_recvClear") #↓清除
         self.horizontalLayout_9.addWidget(self.pushButton_recvClear)
         self.pushButton_recvClear_5 = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_recvClear_5.setFont(font)
-        self.pushButton_recvClear_5.setObjectName("pushButton_recvClear_5")
+        self.pushButton_recvClear_5.setObjectName("pushButton_recvClear_5") #↑清除解析数据
         self.horizontalLayout_9.addWidget(self.pushButton_recvClear_5)
         self.verticalLayout_4.addLayout(self.horizontalLayout_9)
         self.textBrowser_recv = QtWidgets.QTextBrowser(self.layoutWidget1)
@@ -624,14 +732,14 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
+        self.label_5.setObjectName("label_5") #系统当前时间：
         self.horizontalLayout_12.addWidget(self.label_5)
         self.label_curtime = QtWidgets.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Goudy Old Style")
         font.setPointSize(12)
         self.label_curtime.setFont(font)
-        self.label_curtime.setObjectName("label_curtime")
+        self.label_curtime.setObjectName("label_curtime") #请先开始监听端口
         self.horizontalLayout_12.addWidget(self.label_curtime)
         self.verticalLayout_5.addLayout(self.horizontalLayout_12)
         self.horizontalLayout_13 = QtWidgets.QHBoxLayout()
@@ -645,14 +753,14 @@ class Ui_MainWindow(object):
         self.label_16.setFont(font)
         self.label_16.setStyleSheet("")
         self.label_16.setTextFormat(QtCore.Qt.AutoText)
-        self.label_16.setObjectName("label_16")
+        self.label_16.setObjectName("label_16") #历史记录：
         self.horizontalLayout_13.addWidget(self.label_16)
         self.pushButton_recvClear_2 = QtWidgets.QPushButton(self.layoutWidget1)
         font = QtGui.QFont()
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_recvClear_2.setFont(font)
-        self.pushButton_recvClear_2.setObjectName("pushButton_recvClear_2")
+        self.pushButton_recvClear_2.setObjectName("pushButton_recvClear_2") #全部清除
         self.horizontalLayout_13.addWidget(self.pushButton_recvClear_2)
         self.verticalLayout_5.addLayout(self.horizontalLayout_13)
         self.tableView_history = QtWidgets.QTableView(self.layoutWidget1)
@@ -664,7 +772,7 @@ class Ui_MainWindow(object):
         font.setFamily("Agency FB")
         font.setPointSize(12)
         self.pushButton_recvClear_4.setFont(font)
-        self.pushButton_recvClear_4.setObjectName("pushButton_recvClear_4")
+        self.pushButton_recvClear_4.setObjectName("pushButton_recvClear_4") #↑导出到txt
         self.verticalLayout_5.addWidget(self.pushButton_recvClear_4)
         self.horizontalLayout_14.addLayout(self.verticalLayout_5)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -682,6 +790,19 @@ class Ui_MainWindow(object):
         self.pushButton_recvClear.clicked.connect(MainWindow.recv_Clear)
         self.pushButton_link.clicked.connect(MainWindow.link)
         self.pushButton_unlink.clicked.connect(MainWindow.unlink)
+        #读取电量功能函数
+        self.pushButton_readpower.clicked.connect(MainWindow.readpower)
+        self.pushButton_readpower1.clicked.connect(MainWindow.readpower1)
+        self.pushButton_readpower2.clicked.connect(MainWindow.readpower2)
+        self.pushButton_readpower3.clicked.connect(MainWindow.readpower3)
+        self.pushButton_readpower4.clicked.connect(MainWindow.readpower4)
+        self.pushButton_readpower5.clicked.connect(MainWindow.readpower5)
+        self.pushButton_readpower6.clicked.connect(MainWindow.readpower6)
+        self.pushButton_readpower7.clicked.connect(MainWindow.readpower7)
+        self.pushButton_readpower8.clicked.connect(MainWindow.readpower8)
+        self.pushButton_readpower9.clicked.connect(MainWindow.readpower9)
+
+        
         self.pushButton_send.clicked.connect(MainWindow.informationSend)
         self.pushButton_time_check.clicked.connect(MainWindow.time_check)
         self.pushButton_addcheck.clicked.connect(MainWindow.add_check)
@@ -695,7 +816,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "电力通信异构网络测试系统"))
-        self.label_8.setText(_translate("MainWindow", "基于星地融合的电力通信异构网络测试系统 "))
+        self.label_8.setText(_translate("MainWindow", "基于星地融合的电力通信异构网络测试系统"))
         self.label_17.setText(_translate("MainWindow", "版权所有，翻版必究"))
         self.label_9.setText(_translate("MainWindow", "本软件最终解释权归 "))
         self.label_18.setText(_translate("MainWindow", "@ISTIN"))
@@ -703,6 +824,18 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "监听端口："))
         self.pushButton_link.setText(_translate("MainWindow", "连接网络"))
         self.pushButton_unlink.setText(_translate("MainWindow", "断开网络"))
+        #读取电量按钮
+        self.pushButton_readpower.setText(_translate("MainWindow", "读取电表1"))
+        self.pushButton_readpower1.setText(_translate("MainWindow", "读取电表2"))
+        self.pushButton_readpower2.setText(_translate("MainWindow", "读取电表3"))
+        self.pushButton_readpower3.setText(_translate("MainWindow", "读取电表4"))
+        self.pushButton_readpower4.setText(_translate("MainWindow", "读取电表5"))
+        self.pushButton_readpower5.setText(_translate("MainWindow", "读取电表6"))
+        self.pushButton_readpower6.setText(_translate("MainWindow", "读取电表7"))
+        self.pushButton_readpower7.setText(_translate("MainWindow", "读取电表8"))
+        self.pushButton_readpower8.setText(_translate("MainWindow", "读取电表9"))
+        self.pushButton_readpower9.setText(_translate("MainWindow", "读取电表10"))
+        
         self.label_3.setText(_translate("MainWindow", "调试区域："))
         self.checkBox_HEX.setText(_translate("MainWindow", "HEX"))
         self.checkBox_ASCII.setText(_translate("MainWindow", "ASCII"))
@@ -715,7 +848,6 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "正向有功电能（最近）："))
         self.label_14.setText(_translate("MainWindow", "正向无功电能（最近）："))
         self.pushButton_addcheck.setText(_translate("MainWindow", "查询"))
-        self.pushButton_time_check.setText(_translate("MainWindow", "查询"))
         self.pushButton_time_check.setText(_translate("MainWindow", "查询"))
         self.label_6.setText(_translate("MainWindow", "kW·h"))
         self.label_7.setText(_translate("MainWindow", "kW·h"))

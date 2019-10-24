@@ -59,6 +59,8 @@
 #define NULL (void *)0
 #endif /* NULL */
 
+struct timer BD_send_timer;//修改 BD_send_timer为全局变量
+
 unsigned char recieve_data[100];
 unsigned char test_data[10] = "hello\r\n";
 int online_flag;
@@ -140,7 +142,8 @@ int main(void)
 {
   int i;
   uip_ipaddr_t ipaddr;
-  struct timer periodic_timer, arp_timer,event_timer,BD_send_timer,gprs_timer;
+  struct timer periodic_timer, arp_timer,event_timer,gprs_timer;
+	//struct timer periodic_timer, arp_timer,event_timer,BD_send_timer,gprs_timer;
 	unsigned char buf[16];
 	int online_judge_flag=0;
 	u8 ADDR[3] = {0x04, 0xE3, 0xC9};//目的北斗终端机地址
@@ -253,28 +256,34 @@ int main(void)
 						
 				if (timer_expired(&BD_send_timer)&&BD_process_STA==1)  
             {  
-              timer_reset(&BD_send_timer);  
-							
+              //timer_reset(&BD_send_timer);  
+							timer_restart(&BD_send_timer);
 							printf("北斗正在工作，请勿再次发送数据\r\n");
 							if(BD_BUF_1_LEN>0)
 							{
+								int i;
 								BD_TXSQ_SEND(ADDR,BD_BUF_1,BD_BUF_1_LEN);
+								
 								BD_BUF_1_LEN=0;
+								
 							}
 							else if(BD_BUF_2_LEN>0)
 							{
 								BD_TXSQ_SEND(ADDR,BD_BUF_2,BD_BUF_2_LEN);
+							
 								BD_BUF_2_LEN=0;
 							}
 							else if(BD_BUF_3_LEN>0)
 							{
 								BD_TXSQ_SEND(ADDR,BD_BUF_3,BD_BUF_3_LEN);
+								
 								BD_BUF_3_LEN=0;
 							}
 							else if(BD_BUF_ASK_LEN>0)  //1min内未收到ACK将发起ASK，3次之后仍未收到则认定本次通信失败
 							{
 								printf("子包已全部发送完毕，正在封装ASK报文……\r\n");
 								BD_TXSQ_SEND(ADDR,BD_BUF_ASK,BD_BUF_ASK_LEN);
+								
 								ask_count++;
 								if(ask_count>3){
 									printf("ASK次数超过三次,该数据传输过程失败\r\n");

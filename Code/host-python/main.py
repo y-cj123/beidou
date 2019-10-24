@@ -94,10 +94,33 @@ class mywindow(QtWidgets.QMainWindow,Ui_MainWindow,QWidget):
         while(True):
             currtime = time.strftime('%Y.%m.%d %H:%M:%S', time.localtime(time.time()))
             self.label_curtime.setText(str(currtime))
+    #读取电量功能函数
+    def readpower(self):
+        self.cmd_send(b"\x0c")
+    def readpower1(self):
+        self.cmd_send(b"\x01\x0c")
+    def readpower2(self):
+        self.cmd_send(b"\x02\x0c")
+    def readpower3(self):
+        self.cmd_send(b"\x03\x0c")
+    def readpower4(self):
+        self.cmd_send(b"\x04\x0c")
+    def readpower5(self):
+        self.cmd_send(b"\x05\x0c")
+    def readpower6(self):
+        self.cmd_send(b"\x06\x0c")
+    def readpower7(self):
+        self.cmd_send(b"\x07\x0c")
+    def readpower8(self):
+        self.cmd_send(b"\x08\x0c")
+    def readpower9(self):
+        self.cmd_send(b"\x09\x0c")
+
+
+
 
     def combobox_client_Changed(self):
         print('client_change')
-
     def link(self):
         """
         单击函数，打开网络连接
@@ -207,16 +230,27 @@ class mywindow(QtWidgets.QMainWindow,Ui_MainWindow,QWidget):
             if len==4 and data[1]==0xff:
                 msg = '系统未准备就绪，请'+str(data[3])+'s后重试\n'
                 QMessageBox.about(self, "错误",msg)
-            if len>4 and data[6]==0xd9:
+            if len>4 and data[6]==0xf9:
                 #print("这是一则心跳报文")
                 self.msg='来自'+self.get_address(data)+'的心跳报文：'+data+'\n'
                 self.signal_write_msg.emit('写入')
+
             if 20<len<70 and data[6]==0x88:
                 #print('data_len=%s' % data.__len__())
                 #print("这是一则时间信息报文")
                 self.msg = '这是一则时间信息报文\n'
                 self.signal_write_msg.emit('写入')
                 self.get_time_s(data)
+
+            if 20<len<70 and data[6]==0xb8:
+                self.msg = '这是一则电量信息报文\n'
+                self.signal_write_msg.emit('写入')
+                power=self.get_power(data)
+                self.model.appendRow([
+                    QStandardItem(power),
+                ])
+                self.tableView_history.setModel(self.model)
+
             if len>70 and data[12]==0x0c:
                 #print("这是一条电量信息报文")
                 self.msg = '这是一则电量信息报文\n'
@@ -236,7 +270,13 @@ class mywindow(QtWidgets.QMainWindow,Ui_MainWindow,QWidget):
         except Exception as ret:
             print(ret)
             pass
-
+    #通信测试数据解析
+    def get_power(self,data):
+        sub_data=data.hex()[39:43]
+        power=int(sub_data[3]-0x33)*10000+int(sub_data[2]-0x33)*100+int(sub_data[1]-0x33)*1+int(sub_data[0]-0x33)*0.01
+        res = power.strip('0')
+        self.lineEdit_on_power.setText(res)
+        return res
     def get_address(self,data):
         """
         功能函数：得到集中器地址并显示

@@ -350,22 +350,23 @@ while(1)
 
 						printf("发送ACK...\n\n");
 						while(1){
-							//time(&curr_timer);
-							curr_timer=time(NULL);
-							printf("当前计时时间为%ld \n", curr_timer);
+							sleep(2);
+							time(&curr_timer);
+							printf("BD_last_sendtimer is %d\n",BD_last_sendtimer);
+							printf("curr_timer is %d\n",curr_timer);
 							if(curr_timer-BD_last_sendtimer>60){
 								if(write(port_f,ACK_send,3+n_lost_packs+19)!=-1)
 								{
 									receive_length=BD_read(port_f,from_addr,receive_data);
-									if(acked==1)
+									if(receive_length==-1&&acked==1)
 									{
 										printf("already send data to Beidou\n");
 										BD_last_sendtimer=curr_timer;
-										break;
 										acked=0;
+										break;
 									}
 								}
-								else printf("北斗串口写入失败\n");
+								else printf("串口写入失败\n");
 							}
 							else{
 								time_t wait_time=60-(curr_timer-BD_last_sendtimer);
@@ -374,10 +375,9 @@ while(1)
 							} 
 						}
 						
-						if(n_lost_packs==0&&ack_num==0)
+						if(n_lost_packs==0)
 						{
 
-							ack_num=1;
 							char time_buff[30];
 							char day_year[16];
 							char str_pd[SP_LEN*3+1];
@@ -417,7 +417,7 @@ while(1)
 									//}	
 							}
 							fclose(fp_process);
-							//remove(file_name);
+							remove(file_name);
 //func -open file
 							//printf("day_year :%s\n", day_year);
 							snprintf(file_name,25,"./%x%x%x %s",from_addr[0],from_addr[1],from_addr[2],day_year);

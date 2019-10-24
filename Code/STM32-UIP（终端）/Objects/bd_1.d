@@ -24,3 +24,4 @@
 .\objects\bd_1.o: .\uip\timer.h
 .\objects\bd_1.o: .\uip\clock.h
 .\objects\bd_1.o: .\unix\clock-arch.h
+.\objects\bd_1.o: unix\delay.h

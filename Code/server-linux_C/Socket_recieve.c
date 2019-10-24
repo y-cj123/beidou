@@ -6,7 +6,7 @@ extern int command_lenth;
 extern unsigned char download_command[1024];
 
 extern time_t BD_last_sendtimer;
-extern int bd_send_notReady[4];
+int bd_send_notReady[1];
 
 void socket_recieve(int sockfd)
 {
@@ -16,12 +16,12 @@ void socket_recieve(int sockfd)
 	bzero(buffer,sizeof(buffer));
 	while(1)
 	{
-
+		sleep(2);
 		nread=read(sockfd,buffer,sizeof(buffer));
-		//time_t curr_timer;
-		//time(&curr_timer);
-		curr_timer=time(NULL);
-		printf("当前计时时间为%ld \n", curr_timer);
+		time_t curr_timer;
+		time(&curr_timer);
+		printf("BD_last_sendtimer is %d\n",BD_last_sendtimer);
+		printf("curr_timer is %d\n",curr_timer);
 		if (curr_timer-BD_last_sendtimer>60)
 		{
 			if(nread > 0)
@@ -29,12 +29,8 @@ void socket_recieve(int sockfd)
 				command_lenth = nread;
 				int cnt = 0;
 				for(cnt = 0; cnt != nread; ++cnt)
-					download_command[cnt] = buffer[cnt];
-				//download_signal = 1;		
-
-				buffer[nread]='\0';
-				printf("recieve command from server:\n");
-				printf("%s\n",buffer);
+					download_command[cnt] = buffer[cnt];		
+				printf("recieve command from server\n");
 				bzero(buffer,sizeof(buffer));
 				nread = 0;
 				download_signal = 1;
@@ -43,8 +39,8 @@ void socket_recieve(int sockfd)
 		}
 		else {
 			int wait_time=60-(curr_timer-BD_last_sendtimer);
-			bd_send_notReady[3]=wait_time;
-			send(sockfd, bd_send_notReady, 4, 0);	
+			bd_send_notReady[0]=wait_time;
+			send(sockfd, bd_send_notReady, 1, 0);	
 		}
 
 	}

@@ -4,9 +4,11 @@
 #include "stm32f10x_it.h"
 //#include "delay.h"
 #include "timer.h"
+#include "delay.h"
 
 //??
 extern int ask_count;
+extern struct timer BD_send_timer;
 u8 ZJ[] = {'$', 'X', 'T', 'Z', 'J', 0x00, 0x0D, 0, 0, 0, 0, 0, 0x35};		   //????
 u8 IC[] = {'$', 'I', 'C', 'J', 'C', 0,    0x0C, 0, 0, 0, 0, 0x2B};			   //IC??
 u8 SD[228];
@@ -223,7 +225,9 @@ void file_deal(u8 *origin, u8 lenth, u8 n)
 	
 	for(momo_bd=0;momo_bd<ask_len;momo_bd++)
 	BD_BUF_ASK[momo_bd]=ASK[momo_bd];
-	BD_BUF_ASK_LEN=ask_len;	
+	BD_BUF_ASK_LEN=ask_len;
+  timer_restart(&BD_send_timer);	
+	
 }
 
 
@@ -388,10 +392,8 @@ void BD_retransmission(unsigned char len,unsigned char *data)
 		//无丢包不重传，北斗可以重新接受终端新数据
 		else 
 		{
-			u8 ackdata[2] = {0x4F, 0x4B};
 			BD_process_STA=0;
 			printf("收到ACK显示无需重传数据包,该数据传输过程结束,可以再次发送数据\r\n");
-			BD_TXSQ_SEND(ADDR,ackdata,2);
 		}
 	}
 }
